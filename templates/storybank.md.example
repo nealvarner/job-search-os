@@ -1,0 +1,52 @@
+# Storybank
+
+8-10 behavioral interview stories. Each uses STAR + Q.
+
+Coach updates this file after every mock session. Tags let you map stories to question types.
+
+---
+
+## Story 1: The LLM launch (0→1, leadership, AI)
+
+**Tags:** leadership, 0-to-1, ambiguity, metric-driven, scaling
+**Use for:** "tell me about a time you led under ambiguity," "describe a 0→1 launch," "leadership under pressure"
+
+**Situation:** Q3 2023. Acme leadership decided we needed an LLM-powered feature in our core product within 90 days to counter [competitor]'s announcement.
+
+**Task:** I owned the launch. No PRD existed, no eng team formed yet, no model picked.
+
+**Action:**
+1. Week 1: Wrote a 1-pager defining scope (3 user pain points the feature solves, 2 we explicitly punt on). Got leadership alignment in 2 days.
+2. Week 2-3: Pulled together a tiger team (5 eng, 2 design, 1 data). Ran a 3-way model bake-off (GPT-4, Claude, in-house) — picked Claude on latency + cost.
+3. Week 4-6: Built and shipped to 5% in beta. Ran 4 A/B test variants on the activation flow.
+4. Week 7-8: Iterated based on data — killed one variant that tanked retention, doubled down on another.
+5. Week 9-12: Rolled to 100%, monitored, debriefed.
+
+**Result:** Shipped on day 84. +15% engagement on the touched flow. +$2M ARR booked in the first 90 days post-launch.
+
+**Quantification:** $2M ARR, 15% engagement lift, 84-day launch timeline (vs. 90-day target), 8-person team, 4 A/B variants tested.
+
+**Weak dimension to watch:** when telling this story I sometimes underweight the team's contribution and overweight my own. Practice naming what each team member specifically owned.
+
+---
+
+## Story 2: Pricing pushback
+
+**Tags:** conflict, influence-without-authority, stakeholder-mgmt, hardest-decision
+
+[fill in]
+
+---
+
+## Story 3: The retention failure
+
+**Tags:** failure, learning, metric-driven
+
+[fill in]
+
+---
+
+## Gaps (Coach will populate)
+
+- No strong story yet for: "tell me about a time you said no to your manager"
+- No strong story yet for: "describe a time you missed a deadline"

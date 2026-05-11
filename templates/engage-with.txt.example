@@ -1,0 +1,23 @@
+# LinkedIn accounts to comment on daily.
+# Scout pulls their recent posts each morning; Drafter queues comment options.
+# Mix: hiring managers at LAMP companies, thought leaders in your function,
+# recruiters in your industry, people with the role you want, alums.
+# One URL per line. Drop accounts that don't post; add ones that do.
+
+# Hiring managers at LAMP companies
+https://linkedin.com/in/example-hiring-manager-1
+https://linkedin.com/in/example-hiring-manager-2
+
+# Thought leaders in your function
+https://linkedin.com/in/lennysan
+https://linkedin.com/in/aakashg0
+
+# Recruiters in your industry
+https://linkedin.com/in/example-recruiter-1
+
+# People with the role you want
+https://linkedin.com/in/example-target-role-1
+https://linkedin.com/in/example-target-role-2
+
+# Alums you'd want to reconnect with
+https://linkedin.com/in/example-alum-1

@@ -1,0 +1,91 @@
+# Source-of-truth resume. Tailor pulls from this per JD.
+# Don't fabricate metrics — leave blank or note "approx."
+
+name: Jane Doe
+email: jane@example.com
+phone: "+1-555-555-5555"
+location: "Austin, TX"
+linkedin: https://linkedin.com/in/janedoe
+website: https://janedoe.dev
+
+target_roles:
+  - Senior Product Manager
+  - Group Product Manager
+  - Director of Product
+
+target_industries:
+  - B2B SaaS
+  - Developer tools
+  - AI/ML infrastructure
+
+summary: >
+  Product leader with 8 years building and scaling B2B SaaS from 0→1 and 1→10.
+  Shipped 3 GenAI products to 10M+ users at Acme. Bilingual EN/ES.
+
+experience:
+  - company: Acme Corp
+    title: Senior Product Manager, AI Platforms
+    dates: "2022-01 — Present"
+    location: Remote
+    bullets:
+      - action: Led launch of LLM-powered feature
+        result: "+15% engagement, +$2M ARR in 90 days"
+        depth: |
+          Led the 0→1 launch from concept to GA in 8 weeks. Cross-functional team
+          of 9 (eng, design, data, GTM). Used internal experimentation platform
+          to A/B test 4 variants before launch. Post-launch instrumentation
+          captured the +15% engagement lift; finance closed the loop on +$2M ARR.
+        tags: [leadership, 0-to-1, AI, metrics, GTM]
+
+      - action: Owned product roadmap for AI Platforms (3 PMs, 18 engineers)
+        result: "Shipped 12 features, hit 4/4 quarterly OKRs"
+        depth: |
+          ...
+        tags: [leadership, roadmap, prioritization]
+
+      - action: Designed pricing model for new tier
+        result: "+$8M ARR projected at saturation"
+        depth: |
+          ...
+        tags: [pricing, GTM, analysis]
+
+  - company: Beta Inc.
+    title: Product Manager
+    dates: "2019-06 — 2021-12"
+    location: San Francisco, CA
+    bullets:
+      - action: Scaled onboarding flow
+        result: "Activation rate 22% → 41%"
+        depth: |
+          ...
+        tags: [growth, onboarding, metrics]
+
+education:
+  - school: UC Berkeley
+    degree: BS Computer Science
+    dates: "2015-09 — 2019-05"
+    notes: ""
+
+certifications:
+  - name: PMC-Level III
+    issuer: Pragmatic Institute
+    date: "2023-06"
+
+skills:
+  pinned: # the top 3 — pinned at top of LinkedIn Skills section
+    - Product Management
+    - LLM Integration
+    - A/B Testing
+  other:
+    - SQL
+    - Roadmapping
+    - Cross-functional Leadership
+    - Pricing & Packaging
+    - User Research
+    - Growth Strategy
+
+languages:
+  - language: English
+    proficiency: Native
+  - language: Spanish
+    proficiency: Native

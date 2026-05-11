@@ -1,0 +1,39 @@
+# Copy to config.yaml and customize.
+# config.yaml is gitignored.
+
+pipeline_tracker: huntr        # huntr | notion | sheets
+email_provider: gmail          # gmail | outlook
+linkedin_profile_url: https://linkedin.com/in/your-handle
+
+location: "City, State"
+location_preference: "open to remote, prefer [region]"
+
+weekly_search_hours: 10        # tightens the daily cadence if you're employed
+
+# Auto-run schedule (used by ./scripts/install-cron.sh)
+schedule:
+  lamp_refresh: "0 6 * * *"           # 6:00am daily
+  job_sweep: "15 6 * * *"             # 6:15am daily
+  pipeline_triage: "30 6 * * *"       # 6:30am daily
+  outreach_drafts: "45 6 * * *"       # 6:45am daily
+  morning_briefing: "0 7 * * *"       # 7:00am daily
+  weekly_synth: "0 16 * * 5"          # Friday 4:00pm
+
+# Tracker-specific config
+huntr:
+  api_key_env: HUNTR_API_KEY
+  board_id: ""
+
+notion:
+  api_key_env: NOTION_API_KEY
+  database_id: ""
+
+sheets:
+  spreadsheet_id: ""
+  service_account_path: ""
+
+# Drafter voice calibration
+voice:
+  formality: casual              # formal | casual
+  sentence_length: short         # short | medium | long
+  sign_off: "Thanks,"            # how you end emails
