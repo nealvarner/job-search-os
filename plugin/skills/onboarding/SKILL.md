@@ -77,28 +77,69 @@ Copy from the plugin's `templates/` directory. After copying, tell the user:
 
 ---
 
-## Step 3 — Pull their personalized strategy guide
+## Step 3 — Get or generate the user's personalized strategy guide
 
-If the user has a tailored private repo (e.g., Jayson's `nealvarner/jayson-job-search`), invoke the **pull-personal** skill to clone it into `<working-folder>/.personal/` via the gh CLI inside Cowork's VM.
+Every user needs a personalized strategy guide at `<working-folder>/.personal/job-search-guide.md`. Two paths to get one:
 
-Tell the user:
-> *"Now I'll pull your personalized strategy guide from your private GitHub repo. I'll handle the gh CLI auth flow if needed."*
+**Path A — Mentor-tailored repo (e.g., Jayson + Neal):** The user already has a private GitHub repo with a guide someone else wrote for them.
 
-Invoke `pull-personal`. It will:
-1. Verify gh CLI is available
-2. Authenticate via browser flow if not already done
-3. Ask for the repo address (default for Jayson: `nealvarner/jayson-job-search`)
+**Path B — Generate from scratch (new users with no mentor):** The plugin builds one on the spot from their LinkedIn audit + their answers to clarifying questions, using the same methodology Aakash/Dalton/Belcak/Welsh ground the system in.
+
+Ask the user:
+> *"Do you have a personalized strategy guide already? For example, has a mentor or coach put together a private GitHub repo for you? Or do you want me to build one for you from scratch by analyzing your LinkedIn?"*
+
+### Path A — Pull from mentor's repo
+
+If they have one, invoke the **pull-personal** skill. It will:
+1. Verify gh CLI is available in the Cowork VM
+2. Authenticate via browser flow if not already done (`gh auth login -w`)
+3. Ask for the repo address
 4. Clone (or pull if already cloned) into `<working-folder>/.personal/`
 5. Verify the markdown files are present
 
-When pull-personal finishes:
-- Read `<working-folder>/.personal/job-search-guide.md` and `cowork-operations.md`
-- Confirm: *"Synced. I'll reference your personalized guide for headline rewrites, voice in outreach, target-company shortlist, and your specific Value Validation Project ideas."*
+When pull-personal finishes, read `<working-folder>/.personal/job-search-guide.md` and confirm to the user:
+> *"Synced. I'll reference your personalized guide for headline rewrites, voice in outreach, target-company shortlist, and your specific Value Validation Project ideas."*
 
-**If the user has no personalized repo:**
-- Ask them to say "skip"
-- Fall back to the methodology in `plugin/docs/strategy.md`
-- Note this in `config.yaml` as `personal_repo: null`
+### Path B — Generate from scratch
+
+If they don't have a mentor-tailored repo, run this sequence:
+
+**B.1 — LinkedIn audit (profile-audit skill).**
+
+Ask:
+> *"Paste your LinkedIn URL — I'll audit your public profile, surface what you're already doing well, what's underused, and produce a list of clarifying questions to fill the gaps I can't see from outside the auth wall."*
+
+Invoke **profile-audit**. It produces:
+- What was confirmed from public sources
+- What couldn't be accessed (auth-walled content)
+- Initial Strengths/Risks impressions
+- 10-15 clarifying questions tailored to their function and seniority
+
+Save the audit to `<working-folder>/.audit/profile-audit-YYYY-MM-DD.md`.
+
+**B.2 — Walk the user through the clarifying questions.**
+
+Ask them ONE AT A TIME (don't dump all 10-15 at once — that's overwhelming). Capture the answers. After each, summarize back to confirm you got it right.
+
+After all questions answered, save the answers to `<working-folder>/.audit/audit-answers.md`.
+
+**B.3 — Generate the personalized strategy guide (strategy-builder skill).**
+
+Invoke **strategy-builder**. It will:
+- Read the audit + answers
+- Read the plugin's 4 generic methodology docs (`plugin/docs/strategy.md`, `outreach-templates.md`, `cowork-operations.md`, `methodology-notes.md`)
+- Generate a ~14k-word personalized strategy guide using the same 14-section structure as Jayson's
+- Save to `<working-folder>/.personal/job-search-guide.md`
+- Also save a personalized `cowork-operations.md` companion
+
+Tell the user:
+> *"Built your strategy guide. It's at `<path>` — ~14k words covering your situation audit, 3 headline rewrite options, the outreach playbook in your voice, daily cadence, and 5+ Value Validation Project ideas specific to [your function]. Read §0-§2 (10 min) before we keep going — if anything feels off, tell me and I'll rewrite."*
+
+Wait for them to skim. Capture corrections. Re-run strategy-builder on affected sections if needed.
+
+---
+
+**Either path ends with the same state:** `<working-folder>/.personal/job-search-guide.md` exists and has been read by you. The rest of the onboarding can ground itself in that file.
 
 ---
 
@@ -154,10 +195,17 @@ This is the most important data file. Steve Dalton's 2-Hour Job Search framework
 >
 > *I'll ask, you brain-dump. We're not filtering yet — every company you'd consider goes on the list. Then we score each one. Then we sort."*
 
-**Phase 1: Brain-dump.**
-> *"Name companies in batches of 10. Don't filter for fit — anywhere you'd consider working. We'll filter later. Go."*
+**Phase 1: Seed from lamp-seeder, then brain-dump.**
 
-Add to `lamp.csv` as they list them. Keep prompting until you have at least 20 (target 40). If they stall:
+Before asking the user to brain-dump from scratch, invoke the **lamp-seeder** skill to generate 30-40 candidate companies based on their function, industry, location, and seniority (pulled from their personalized guide and audit). This kills the blank-page problem.
+
+Show them the seeded list:
+> *"Here are 40 candidate companies based on your function, location, and target role. Read through, mentally cross out any you'd reject outright, then we'll add YOUR own picks — companies you know, people-driven choices, dream targets I might have missed."*
+
+Then prompt for additions:
+> *"What companies should I add that I didn't have? Think: places where you have an in, places you've heard great things about, competitors of your current employer, companies whose products you love."*
+
+Add their additions to `lamp.csv`. Aim for total of 40 (range 20-50 is acceptable). If they stall:
 - Suggest using their target-role JDs: *"Look at the JDs you saved earlier — who's hiring for similar roles?"*
 - Suggest their network: *"Anyone you respect on LinkedIn — where do they work?"*
 - Suggest competitors of current company: *"Direct and adjacent competitors of [Current Company]?"*
