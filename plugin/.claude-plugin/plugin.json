@@ -1,6 +1,6 @@
 {
   "name": "job-search-os",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Claude-driven operating system for a serious job search. Run /job-search-os:onboarding once and the plugin audits your LinkedIn, generates a personalized strategy guide (or pulls one from a mentor's private repo), seeds your target-company list, walks you through your resume + interview storybank, and schedules a daily morning briefing. Thereafter, thirteen skills (Onboarding, Profile-Audit, Strategy-Builder, Pull-Personal, Lamp-Seeder, Brief, Scout, Drafter, Researcher, Tailor, Builder, Coach, Ops, Synth) act as your chief-of-staff team for outreach drafting, contact research, resume tailoring, mock interviews, and weekly synthesis.",
   "author": {
     "name": "Neal Varner"

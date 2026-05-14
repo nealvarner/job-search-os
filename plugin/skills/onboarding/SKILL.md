@@ -296,22 +296,34 @@ Save.
 
 ---
 
-## Step 11 — Final summary
+## Step 11 — Trigger the first live briefing (this is the value reveal)
+
+Don't end with a "setup complete" message. End by **invoking Brief immediately** so the user sees the system actually working with their actual data — drafted outreach, queued actions, pipeline state, all real.
 
 Tell them:
 
-> *"Setup complete. Here's where you are:*
+> *"Setup is done. Instead of waiting until tomorrow morning, let's run your first briefing right now so you can see the system in action."*
+
+Then invoke **brief** with a first-time-mode hint:
+
+> *"Brief, first-time mode. The user just finished onboarding — config.yaml is populated, .personal/ has their LinkedIn rewrites + network blast + recommendation requests + voice profile, pipeline/week-1-actions.md has their 7-day queue, lamp.csv has [N] target companies, resume.yaml + storybank.md are seeded. There's no pipeline history yet. Produce today's briefing that surfaces the concrete actions ready to take RIGHT NOW from the artifacts strategy-builder generated."*
+
+Brief will (per its first-time-mode behavior):
+- Read `pipeline/week-1-actions.md` day-1 items
+- Reference the just-generated artifacts: linkedin-rewrites.md, network-blast.md, recommendation-requests.md
+- Surface today's concrete actions: "Paste headline option B into LinkedIn. Send 3 of your 5 recommendation requests. Pick your first 5 friends for the network blast."
+- Show the user that drafted outreach is ALREADY queued in Gmail drafts (if Brief produces them inline, even better)
+- Tell them what scheduled briefings will produce in subsequent days
+
+After Brief renders, close with:
+
+> *"That's your system, running. From here on:*
 >
-> *✅ Working folder connected at `[path]`*
-> *✅ Data files seeded: `lamp.csv` ([N] companies), `resume.yaml`, `storybank.md` ([N] stories), `engage-with.txt` ([N] contacts)*
-> *✅ Personalized strategy guide loaded (if applicable)*
-> *✅ Gmail + Calendar connectors active*
-> *✅ Brief scheduled for weekdays 7:30am*
-> *✅ Synth scheduled for Fridays 4pm*
+> *• Every weekday 7:30am — a fresh briefing in your inbox (paste the /schedule command from earlier if you haven't yet)*
+> *• Every Friday 4pm — Synth's weekly review*
+> *• Anytime — invoke any of the 13 skills by name: 'Researcher, prep me for...', 'Coach, run me through...', 'Builder, give me 3 VVP options for...'*
 >
-> *Tomorrow morning at 7:30am you'll get your first briefing. To preview now, say: 'Brief, give me a sample briefing using whatever you have so far.'*
->
-> *The first 2 weeks the drafts will need editing. Voice calibrates fast — by week 3 it'll feel like a real staff."*
+> *Your day 1 actions are above. Block 60 minutes today to work through them — Brief will check back in tomorrow morning to see what shipped."*
 
 ---
 
