@@ -89,36 +89,40 @@ Total active time: ~60-90 min/day. Cowork handles everything around it.
 ## What's in this repo
 
 ```
-job-search-os/
+job-search-os/                           (marketplace)
 ├── .claude-plugin/
-│   ├── plugin.json           plugin manifest
-│   └── marketplace.json      single-plugin marketplace catalog
-├── skills/                   the 9 named modes
-│   ├── brief/SKILL.md
-│   ├── scout/SKILL.md
-│   ├── drafter/SKILL.md
-│   ├── researcher/SKILL.md
-│   ├── tailor/SKILL.md
-│   ├── builder/SKILL.md
-│   ├── coach/SKILL.md
-│   ├── ops/SKILL.md
-│   └── synth/SKILL.md
-├── docs/                     human-readable methodology + ops docs
-│   ├── strategy.md
-│   ├── outreach-templates.md
-│   ├── cowork-operations.md
-│   └── methodology-notes.md
-├── templates/                seed data files (copied into host folder on first run)
-│   ├── lamp.csv.example
-│   ├── resume.yaml.example
-│   ├── me-on-a-page.md.example
-│   ├── storybank.md.example
-│   ├── engage-with.txt.example
-│   └── config.yaml.example
-├── personalize.md            step-by-step customization walkthrough
-├── README.md                 this file
+│   └── marketplace.json                 single-plugin marketplace catalog
+├── plugin/                              the plugin itself
+│   ├── .claude-plugin/
+│   │   └── plugin.json                  plugin manifest
+│   ├── skills/                          the 9 named modes
+│   │   ├── brief/SKILL.md
+│   │   ├── scout/SKILL.md
+│   │   ├── drafter/SKILL.md
+│   │   ├── researcher/SKILL.md
+│   │   ├── tailor/SKILL.md
+│   │   ├── builder/SKILL.md
+│   │   ├── coach/SKILL.md
+│   │   ├── ops/SKILL.md
+│   │   └── synth/SKILL.md
+│   ├── docs/                            methodology + ops docs
+│   │   ├── strategy.md
+│   │   ├── outreach-templates.md
+│   │   ├── cowork-operations.md
+│   │   └── methodology-notes.md
+│   ├── templates/                       seed data files
+│   │   ├── lamp.csv.example
+│   │   ├── resume.yaml.example
+│   │   ├── me-on-a-page.md.example
+│   │   ├── storybank.md.example
+│   │   ├── engage-with.txt.example
+│   │   └── config.yaml.example
+│   └── personalize.md                   customization walkthrough
+├── README.md                            this file
 └── LICENSE
 ```
+
+Structure mirrors Anthropic's [knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) marketplace pattern.
 
 ---
 
@@ -132,7 +136,7 @@ After installing the plugin and connecting a host folder, run:
 
 (Or paste: *"Walk me through onboarding — copy the templates into my host folder, then help me fill out my LAMP list, resume.yaml, and storybank."*)
 
-The full walkthrough is in [`personalize.md`](personalize.md). ~45-60 min one-time.
+The full walkthrough is in [`plugin/personalize.md`](plugin/personalize.md). ~45-60 min one-time.
 
 ---
 

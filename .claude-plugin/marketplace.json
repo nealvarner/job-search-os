@@ -1,12 +1,12 @@
 {
-  "name": "job-search-os-marketplace",
+  "name": "job-search-os",
   "owner": {
     "name": "Neal Varner"
   },
   "plugins": [
     {
       "name": "job-search-os",
-      "source": ".",
+      "source": "./plugin",
       "description": "Claude-driven OS for a serious job search. 9 skills (Brief, Scout, Drafter, Researcher, Tailor, Builder, Coach, Ops, Synth) act as a chief-of-staff team for outreach drafting, contact research, resume tailoring, mock interviews, pipeline tracking, and weekly synthesis.",
       "author": {
         "name": "Neal Varner"
