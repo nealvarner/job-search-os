@@ -79,16 +79,26 @@ Copy from the plugin's `templates/` directory. After copying, tell the user:
 
 ## Step 3 — Pull their personalized strategy guide
 
-If the user is Jayson (or anyone with a tailored private repo), they have a personalized strategy guide stored as markdown files outside this plugin. Ask:
+If the user has a tailored private repo (e.g., Jayson's `nealvarner/jayson-job-search`), invoke the **pull-personal** skill to clone it into `<working-folder>/.personal/` via the gh CLI inside Cowork's VM.
 
-> *"Do you have a personalized strategy guide from someone (e.g., job-search-guide.md and cowork-operations.md from a private GitHub repo)? If yes — please download those .md files from your GitHub repo and drop them in your working folder. They'll be in `https://github.com/<owner>/<your-job-search-repo>`. Tell me when you've done that, or say 'skip' if you don't have one and want to use only the generic strategy in this plugin."*
+Tell the user:
+> *"Now I'll pull your personalized strategy guide from your private GitHub repo. I'll handle the gh CLI auth flow if needed."*
 
-When they confirm:
-- Verify the files are present in the working folder
-- Read them — the contents now ground all future skill behavior (especially Drafter's voice, Tailor's anchor metrics, Brief's daily focus)
-- Tell them: *"Got it. I'll reference your personalized guide whenever it's relevant — in particular, the headline rewrites, About-section draft, and target-company shortlist."*
+Invoke `pull-personal`. It will:
+1. Verify gh CLI is available
+2. Authenticate via browser flow if not already done
+3. Ask for the repo address (default for Jayson: `nealvarner/jayson-job-search`)
+4. Clone (or pull if already cloned) into `<working-folder>/.personal/`
+5. Verify the markdown files are present
 
-If they skip, fall back to the methodology in `plugin/docs/strategy.md`.
+When pull-personal finishes:
+- Read `<working-folder>/.personal/job-search-guide.md` and `cowork-operations.md`
+- Confirm: *"Synced. I'll reference your personalized guide for headline rewrites, voice in outreach, target-company shortlist, and your specific Value Validation Project ideas."*
+
+**If the user has no personalized repo:**
+- Ask them to say "skip"
+- Fall back to the methodology in `plugin/docs/strategy.md`
+- Note this in `config.yaml` as `personal_repo: null`
 
 ---
 
