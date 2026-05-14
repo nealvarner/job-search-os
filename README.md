@@ -1,70 +1,88 @@
 # job-search-os
 
-A Claude-driven operating system for a serious job search.
+A **Claude Cowork plugin** that turns a serious job search into a system.
 
-Built on a simple premise: **the thinking is the bottleneck, not the typing.** Talking to people is the job search — applying online is a side effect. This repo gives you a chief-of-staff layer (Claude Code skills + Cowork co-working sessions) that handles the research, drafting, pipeline tracking, and synthesis, so you can spend your time on the conversations that actually move offers.
+Built on a simple premise: **the thinking is the bottleneck, not the typing.** Talking to people is the job search — applying online is a side effect. This plugin gives Cowork a chief-of-staff layer that handles research, drafting, pipeline tracking, mock interviews, and weekly synthesis, so the user spends their time on the conversations that actually move offers.
 
-Methodology distilled from Aakash Gupta, Justin Welsh, Steve Dalton's *2-Hour Job Search*, Austin Belcak's *Cultivated Culture*, the LDS Church's *Find a Better Job* self-reliance course, and current 2026 best practices.
+Methodology distilled from Aakash Gupta, Justin Welsh, Steve Dalton's *2-Hour Job Search*, Austin Belcak's *Cultivated Culture*, the LDS *Find a Better Job* self-reliance course, and current 2026 best practices.
 
 ---
 
-## The model
+## What's in this plugin
 
-Three layers:
+Nine named "modes" — Cowork skills that act like a small staff:
 
-1. **Autonomous overnight (Claude Code skills on cron)** — by 7am, you have a morning briefing in your inbox: today's drafted outreaches, follow-ups due, new postings at target companies, comment queue.
-2. **Daily co-working session (30-60 min with Cowork)** — review the briefing, edit drafts, hit send, file in pipeline tracker.
-3. **On-demand event-triggered modes** — interview tomorrow, recruiter reply, new job lands — invoke the right "team member" and let it run.
-
-Nine named modes act like a small staff:
-
-| Mode | Role |
+| Skill | Role |
 |---|---|
-| **Brief** | Morning briefing producer (auto, daily) |
-| **Scout** | Sources leads, monitors job boards, tracks target-company news |
-| **Drafter** | Writes outreach, comments, follow-ups, thank-yous |
-| **Researcher** | Deep-dives a company/person before outreach or interview |
-| **Tailor** | Customizes resume per JD |
-| **Builder** | Produces Belcak-style Value Validation Projects |
-| **Coach** | Mock interviews, behavioral prep, storybank curator |
-| **Ops** | Pipeline tracker, calendar, file management |
-| **Synth** | Weekly review, surface patterns, draft next-week commitments |
+| **brief** | Morning briefing producer (typically `/schedule` on weekday mornings) |
+| **scout** | Sources leads, monitors job boards, tracks target-company news |
+| **drafter** | Writes outreach, comments, follow-ups, thank-yous in the user's voice |
+| **researcher** | Deep-dives a company or person before outreach or interviews |
+| **tailor** | Customizes resume per JD; never fabricates; ATS-friendly output |
+| **builder** | Produces Belcak-style Value Validation Projects |
+| **coach** | Mock interviews with STAR-Q scoring; storybank curator |
+| **ops** | Pipeline tracker, 3B7 follow-up logic, calendar, file management |
+| **synth** | Weekly review (Friday); surfaces patterns; drafts next-week commitments |
 
 ---
 
-## The hard line — what this system DOESN'T do
+## The hard line — what this plugin DOESN'T do
 
-**No autonomous LinkedIn actions.** Cowork drafts and surfaces context; you hit send yourself. LinkedIn's TOS prohibits automated authenticated browsing and their bot detection is aggressive — account ban is the only catastrophic failure mode in this system. The 30 seconds saved by automating the click is not worth the existential risk to your primary professional platform.
+**No autonomous LinkedIn actions.** Cowork drafts and surfaces context; the user hits send themselves. LinkedIn's TOS prohibits automated authenticated browsing and account ban is the only catastrophic failure mode in this system. The 30 seconds saved by automating the click is not worth the existential risk to the user's primary professional platform.
 
 **No mass-apply.** 10 deeply-researched outreaches per day beats 100 spray-and-pray. The whole system is built for depth.
 
 ---
 
-## Setup
+## Install
 
-```bash
-git clone https://github.com/[your-username]/job-search-os ~/job-search-os
-cd ~/job-search-os
-./setup.sh
+This is a Cowork plugin distributed as a marketplace. The user installs it from inside Claude Cowork — no terminal, no git, no developer setup.
+
+**Requirements:**
+- Claude Pro, Max, Team, or Enterprise (Cowork is not on the free plan)
+- Claude Desktop app for macOS or Windows
+- A GitHub account (so you can be added as a collaborator to this private repo)
+
+**Install steps:**
+
+1. Open Claude Desktop and switch to the **Cowork** tab.
+2. Click **Customize → Browse plugins → Add marketplace**.
+3. Paste this repo's URL: `https://github.com/nealvarner/job-search-os`
+4. Find **job-search-os** in the list and click **Install**.
+5. Cowork loads the 9 skills automatically. Verify with `/job-search-os:brief` (or just ask Cowork "give me my morning briefing").
+
+**One critical setup step — connect a host folder for persistent data.**
+
+Cowork's VM filesystem is non-deterministic across sessions. Your LAMP list, resume.yaml, briefings archive, and pipeline log must live in a folder on your Mac/PC that Cowork can read and write. In Cowork:
+
+- **Customize → Connect folder** → pick (or create) a folder like `~/Documents/job-search/`
+- That folder becomes your persistent state. Skills write here; sessions can re-read across days.
+
+When you first invoke a skill, it'll detect there's no data yet and walk you through seeding it from `templates/`.
+
+---
+
+## Schedule the morning briefing
+
+Cowork has built-in scheduling via `/schedule`. In a Cowork session:
+
+```
+/schedule every weekday at 7:30am: run /job-search-os:brief and save the
+briefing to my job-search folder
 ```
 
-`setup.sh` walks you through:
-- Claude Code auth
-- Copying example templates → personal data files (gitignored)
-- Gmail OAuth (for draft creation)
-- Pipeline tracker choice (Huntr / Notion / Google Sheets)
-- Cron install for the morning briefing
+**Caveat:** Scheduled tasks only run when your computer is awake and Claude Desktop is open. Leave your Mac/PC awake-with-display-off overnight, or invoke `brief` manually each morning. (Don't worry — invoking `brief` takes 30 seconds.)
 
-Then run `/onboarding` once inside Claude Code — ~45 min walkthrough that fills out your LAMP list, your resume YAML, your storybank, and your Me-in-30-Seconds.
+---
 
-After that, daily cadence:
+## Daily flow
 
-- **7am** — morning briefing in your inbox
-- **8-9am** — 30-min co-working session
-- **Throughout day** — invoke modes on demand
-- **Friday 4pm** — weekly synthesis
+1. **Morning** (5-10 min) — Open Cowork. If scheduled, your briefing is waiting. Otherwise say *"Brief, give me today."*
+2. **Co-working session** (30-60 min) — Walk through the queue. For each drafted outreach: Cowork pulls up the target's context, you edit, you send from your own browser session (logged into your Gmail / LinkedIn).
+3. **On-demand throughout the day** — *"Researcher, prep me for my 2pm with [Name]"* / *"Coach, run me through a behavioral panel"* / *"Builder, give me 3 VVP options for [Company]"*
+4. **Friday** — Synth posts the weekly review.
 
-Total active time: ~60-90 min/day.
+Total active time: ~60-90 min/day. Cowork handles everything around it.
 
 ---
 
@@ -72,63 +90,52 @@ Total active time: ~60-90 min/day.
 
 ```
 job-search-os/
-├── README.md                  this file
-├── personalize.md             how to customize for yourself
-├── docs/
-│   ├── strategy.md            the underlying playbook
-│   ├── outreach-templates.md  copy-pasteable templates (10 scenarios)
-│   ├── cowork-operations.md   how the daily cadence runs
-│   └── methodology-notes.md   LDS self-reliance methods worth knowing
-├── .claude/skills/            the 9 named modes
-├── templates/                 example data files to copy + personalize
-├── data/                      YOUR personal data lives here (gitignored)
-├── briefings/                 daily briefing archive (gitignored)
-└── pipeline/                  pipeline logs (gitignored)
+├── .claude-plugin/
+│   ├── plugin.json           plugin manifest
+│   └── marketplace.json      single-plugin marketplace catalog
+├── skills/                   the 9 named modes
+│   ├── brief/SKILL.md
+│   ├── scout/SKILL.md
+│   ├── drafter/SKILL.md
+│   ├── researcher/SKILL.md
+│   ├── tailor/SKILL.md
+│   ├── builder/SKILL.md
+│   ├── coach/SKILL.md
+│   ├── ops/SKILL.md
+│   └── synth/SKILL.md
+├── docs/                     human-readable methodology + ops docs
+│   ├── strategy.md
+│   ├── outreach-templates.md
+│   ├── cowork-operations.md
+│   └── methodology-notes.md
+├── templates/                seed data files (copied into host folder on first run)
+│   ├── lamp.csv.example
+│   ├── resume.yaml.example
+│   ├── me-on-a-page.md.example
+│   ├── storybank.md.example
+│   ├── engage-with.txt.example
+│   └── config.yaml.example
+├── personalize.md            step-by-step customization walkthrough
+├── README.md                 this file
+└── LICENSE
 ```
 
 ---
 
-## Personalization
+## Personalize
 
-This repo is a generic framework. Every person using it needs to personalize:
+After installing the plugin and connecting a host folder, run:
 
-- `data/lamp.csv` — your 40 target companies, scored on advocacy/motivation/posting
-- `data/resume.yaml` — your experience as structured YAML (used by Tailor)
-- `data/me-on-a-page.md` — your forwardable 1-pager
-- `data/storybank.md` — your behavioral interview stories
-- `data/engage-with.txt` — 20-30 LinkedIn accounts you'll comment on daily
-- `data/target-jds/` — 5 target-role JDs for semantic matching
+```
+/job-search-os:onboarding
+```
 
-The `templates/` directory has examples for each. Copy `.example` files into `data/`, then edit. Personal data files are gitignored.
+(Or paste: *"Walk me through onboarding — copy the templates into my host folder, then help me fill out my LAMP list, resume.yaml, and storybank."*)
 
-See [`personalize.md`](personalize.md) for the full walkthrough.
-
----
-
-## Sharing this with someone
-
-Two options:
-
-1. **Fork it** — they get their own private repo, their personal data stays in their fork only.
-2. **Clone and own** — `git clone --depth=1` then re-init with their own remote. No history connection.
-
-Either way, personal data in `data/` is gitignored from day one. The repo is the framework; the personal layer is local.
-
----
-
-## Honest scope
-
-- **One evening** to scaffold a personal copy and seed the LAMP list.
-- **One afternoon** to run `/onboarding` and produce the resume YAML + storybank.
-- **Two weeks** of tuning — drafts will need heavy editing at first; voice calibrates over week 1-2.
-- **Then ~60-90 min/day** of focused job-search work, with Claude handling everything around it.
+The full walkthrough is in [`personalize.md`](personalize.md). ~45-60 min one-time.
 
 ---
 
 ## License
 
-MIT. Use it, fork it, adapt it.
-
----
-
-*Built May 2026. Methodology current as of then; tooling churns — read [`docs/strategy.md`](docs/strategy.md) for the principles, not just the tool list.*
+MIT.

@@ -1,6 +1,7 @@
 ---
 name: builder
-description: Produces Belcak-style Value Validation Projects. Builds a 1-3 page deliverable that solves a real problem at a target company.
+description: Produces Value Validation Projects (Belcak method) — 1-3 page deliverables that solve a real problem at a target company, sent unsolicited to lift cold-outreach response rates from ~5% to 30-50%. Reference this when the user wants to send something to a dream-list company, "do the work first," or stand out from typical applications.
+user-invocable: true
 ---
 
 # Builder — Value Validation Projects

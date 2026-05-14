@@ -12,20 +12,32 @@ Cowork plays the role of your full-time chief of staff for the search. It does t
 
 ## Three layers
 
-### Layer 1 — Autonomous overnight (Claude Code skills on cron)
+### Layer 1 — Scheduled morning briefing (Cowork /schedule)
 
-Runs without you present. Public sources and API integrations only — no authenticated browsing. By 7am, the morning briefing is in your inbox.
+Cowork's `/schedule` command runs a fresh session at a chosen time and executes a prompt. Use it to produce the morning briefing.
 
-| When | What runs | Output |
+```
+/schedule every weekday at 7:30am: run /job-search-os:brief and save the
+briefing to my job-search folder
+```
+
+What that scheduled run does, in order:
+
+| Step | Action | Output |
 |---|---|---|
-| 6:00am | LAMP refresh: re-rank by motivation × posting freshness × advocacy | Updated `data/lamp.csv` |
-| 6:15am | Job-board sweep (Wellfound, Built In, HN, Indeed RSS, etc.) | New rows in pipeline tracker, tagged by LAMP match |
-| 6:30am | Pipeline triage: who's overdue per 3B7, who's gone cold, who has interviews this week, who needs a thank-you | Action queue |
-| 6:45am | Today's 5 outreach drafts | Saved as Gmail drafts |
-| 7:00am | Comment queue: 5 substantive comment options on yesterday's posts from `engage-with.txt` | Listed in briefing with post links |
-| 7:00am | Morning briefing email sent | Inbox |
+| 1 | LAMP refresh: re-rank by motivation × posting freshness × advocacy | Updated `lamp.csv` in host folder |
+| 2 | Job-board sweep (Wellfound, Built In, HN, Indeed RSS, BYU-Pathway, SHRM Jobs) | New rows in pipeline tracker, tagged by LAMP match |
+| 3 | Pipeline triage: who's overdue per 3B7, who's gone cold, who has interviews this week, who needs a thank-you | Action queue |
+| 4 | Today's 5 outreach drafts | Saved as Gmail drafts via the Gmail connector |
+| 5 | Comment queue: 5 substantive comment options on posts from `engage-with.txt` | Listed in briefing with post links |
+| 6 | Morning briefing saved to `briefings/[date].md` in host folder | Ready to review |
 
-Friday 4pm: weekly synthesis email — what shipped, what stalled, win + lesson, draft next-week commitments.
+Friday 4pm: a separate scheduled task invokes Synth for the weekly synthesis.
+
+**Important caveats:**
+- Scheduled tasks only run **when your computer is awake and Claude Desktop is open**. Leave the Mac/PC awake-with-display-off overnight, or invoke `brief` manually each morning (takes 30 seconds).
+- The Gmail connector occasionally drops session state — Brief's prompt should reconnect if needed before drafting.
+- If you miss a morning, just invoke `/job-search-os:brief` manually when you sit down. Same output.
 
 ### Layer 2 — Daily co-working session (30-60 min, Cowork + you together)
 
@@ -76,21 +88,23 @@ Everything else (ATS forms on Greenhouse/Lever/Workday, Gmail drafts, Google She
 
 ## The "team" — naming the modes
 
-Cowork as a single agent juggling everything is harder to reason about than Cowork as a small team. Name the modes; talk to them by name.
+The 9 skills act like a small staff. Talk to them by name.
 
 | Name | Role | When you invoke |
 |---|---|---|
-| **Brief** | Morning briefing producer | Auto, 7am |
-| **Scout** | Sources leads, monitors job boards, tracks target news | Auto, continuous |
-| **Drafter** | Writes outreach, comments, follow-ups | Auto + on demand |
-| **Researcher** | Deep-dives a company or person | "Researcher, prep me on [Company]" |
-| **Tailor** | Customizes resume per JD | Auto when a high-fit job lands |
-| **Builder** | Produces Value Validation Projects | "Builder, give me 3 VVP options for [Company]" |
-| **Coach** | Mock interviews, behavioral prep, storybank | "Coach, run me through a panel for [Role]" |
-| **Ops** | Pipeline tracker, calendar, file management | Auto, plus "Ops, what's overdue?" |
-| **Synth** | Weekly review, surface patterns, draft commitments | Auto, Friday 4pm |
+| **brief** | Morning briefing producer | `/schedule` 7:30am, or "give me my briefing" |
+| **scout** | Sources leads, monitors job boards, tracks target news | Auto from Brief, or "what's new at [Company]" |
+| **drafter** | Writes outreach, comments, follow-ups | Auto from Brief, or "draft me a connection request to [Name]" |
+| **researcher** | Deep-dives a company or person | "Researcher, prep me on [Company]" |
+| **tailor** | Customizes resume per JD | Auto when a high-fit job lands, or "tailor my resume for this JD" |
+| **builder** | Produces Value Validation Projects | "Builder, give me 3 VVP options for [Company]" |
+| **coach** | Mock interviews, behavioral prep, storybank | "Coach, run me through a panel for [Role]" |
+| **ops** | Pipeline tracker, calendar, file management | "Ops, what's overdue?" |
+| **synth** | Weekly review, surface patterns, draft commitments | `/schedule` Friday 4pm, or "weekly review" |
 
-In practice these are skill prompts in one Claude Code project, but giving them names lets you talk to the system the way you'd talk to a real staff. "Researcher, before my 2pm call with the Reckitt competitor, give me a 1-pager" is more natural than crafting a prompt.
+Skills are namespaced in Cowork: `/job-search-os:brief`, `/job-search-os:researcher`, etc. You can also just ask Cowork in natural language — it'll pick the right skill based on the description.
+
+Researcher example in practice: *"Researcher, before my 2pm call with the Reckitt competitor, give me a 1-pager"* — Cowork picks Researcher and runs.
 
 ---
 
@@ -111,9 +125,33 @@ By end of week 2: profile rebuilt, 50 warm contacts re-engaged, 10-15 cold outre
 
 ---
 
+## Where state lives (the host-folder pattern)
+
+Cowork's VM filesystem is **not** deterministic across sessions. Don't store anything important inside the VM.
+
+Instead, connect a host folder on day one (Customize → Connect folder). Everything persistent lives there:
+
+```
+~/Documents/job-search/                  (or wherever you connected)
+├── lamp.csv                             your 40 target companies
+├── resume.yaml                          source-of-truth experience
+├── me-on-a-page.md                      forwardable 1-pager
+├── storybank.md                         behavioral interview stories
+├── engage-with.txt                      LinkedIn URLs to comment on
+├── config.yaml                          tracker, email, location prefs
+├── target-jds/                          5 target-role JDs
+├── briefings/                           daily briefing archive
+├── pipeline/                            pipeline log
+└── output/                              tailored resumes, VVPs, etc.
+```
+
+All skills read and write here. When you onboard, the plugin copies its `templates/` into this folder so you have starting structure.
+
+---
+
 ## What this isn't
 
 - **Not a mass-apply system.** Depth over volume. 10 deeply-researched outreaches > 100 spray.
 - **Not a replacement for the human work.** The conversations are still the search.
 - **Not a LinkedIn bot.** Already covered.
-- **Not a black box.** Every artifact is reviewable in `~/job-search-os/`. Audit trail is right there.
+- **Not a black box.** Every artifact is reviewable in your connected host folder. Audit trail is right there.

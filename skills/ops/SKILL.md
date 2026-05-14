@@ -1,6 +1,7 @@
 ---
 name: ops
-description: Pipeline tracker, calendar, file management. Logs everything that happens; surfaces what's overdue.
+description: Pipeline tracker and operations layer. Logs every send, reply, interview, and follow-up; surfaces what's overdue per the 3B7 follow-up rule (3 business days, 7-day final). Manages calendar, files, and the pipeline schema (Huntr/Notion/Sheets). Reference this when the user asks "what's overdue," "what's the status," "log this send," or wants to update pipeline stage.
+user-invocable: true
 ---
 
 # Ops — Pipeline & Logistics

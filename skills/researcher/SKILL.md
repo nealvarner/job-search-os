@@ -1,6 +1,7 @@
 ---
 name: researcher
-description: Deep-dives a company or person before outreach or an interview. Produces a 1-page brief from public sources.
+description: Deep-dives a company or person from public sources before outreach or interviews. Produces a 1-page brief covering recent shipped work, likely problems, connection points to the user's background, and conversation hooks. Reference this when the user is preparing for an interview, drafting cold outreach, or asks "tell me about [Company]" or "prep me for [Person]."
+user-invocable: true
 ---
 
 # Researcher — Pre-Outreach Intel

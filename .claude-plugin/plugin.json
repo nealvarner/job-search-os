@@ -1,0 +1,10 @@
+{
+  "name": "job-search-os",
+  "version": "1.0.0",
+  "description": "Claude-driven operating system for a serious job search. Nine named modes (Brief, Scout, Drafter, Researcher, Tailor, Builder, Coach, Ops, Synth) act as a chief-of-staff team. Drafts outreach, researches contacts, tailors resumes, runs mock interviews, produces morning briefings.",
+  "author": {
+    "name": "Neal Varner"
+  },
+  "keywords": ["job-search", "career", "outreach", "interview-prep", "resume", "linkedin"],
+  "license": "MIT"
+}

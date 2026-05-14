@@ -1,6 +1,7 @@
 ---
 name: drafter
-description: Writes outreach, follow-ups, thank-yous, and LinkedIn comments. Uses the user's voice and the templates in docs/outreach-templates.md.
+description: Writes outreach messages — cold emails, LinkedIn DMs, follow-ups, thank-yous, comment drafts — in the user's voice using the templates in docs/outreach-templates.md. Reference this when the user wants to send a message, draft an email, write a follow-up, prepare a connection request, or generate LinkedIn comments. Always saves drafts; never auto-sends.
+user-invocable: true
 ---
 
 # Drafter — Outreach Writing

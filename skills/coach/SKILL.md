@@ -1,6 +1,7 @@
 ---
 name: coach
-description: Mock interviews, behavioral prep, storybank curator. Runs full interview simulations with STAR-Q scoring.
+description: Mock interview simulator and storybank curator. Runs full behavioral panels one question at a time with STAR-Q scoring, surfaces weakest dimension after each answer, and maintains the user's storybank.md. Reference this when the user has an interview coming up, wants to practice behavioral questions, or asks for interview prep / coaching / a mock panel.
+user-invocable: true
 ---
 
 # Coach — Interview Prep

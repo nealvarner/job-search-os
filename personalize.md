@@ -1,41 +1,39 @@
-# Personalize job-search-os for you
+# Personalize job-search-os
 
-This repo is a generic framework. Before the skills can do anything useful, they need to know who you are and what you're going after. This doc walks through every personalization step.
+The plugin is generic. Before the skills can do anything useful, they need to know who you are and what you're going after. This doc walks through every personalization step inside Cowork.
 
-Plan ~2-3 hours total. You can do it in one sitting or split it across two evenings.
-
----
-
-## Step 1 — Run `/onboarding`
-
-Inside Claude Code:
-
-```
-/onboarding
-```
-
-This walks you through everything below interactively. If you'd rather do it manually, follow the steps below.
+Plan ~2-3 hours total. One sitting or two evenings.
 
 ---
 
-## Step 2 — Copy example files into `data/`
+## Step 1 — Install the plugin and connect a host folder
 
-```bash
-cp templates/lamp.csv.example data/lamp.csv
-cp templates/resume.yaml.example data/resume.yaml
-cp templates/me-on-a-page.md.example data/me-on-a-page.md
-cp templates/storybank.md.example data/storybank.md
-cp templates/engage-with.txt.example data/engage-with.txt
-cp -r templates/target-jds.example data/target-jds
-```
+Per the [README](README.md):
 
-`data/` is gitignored, so everything you put here stays local to you.
+1. Claude Desktop → **Cowork** tab → **Customize → Browse plugins → Add marketplace** → paste `https://github.com/nealvarner/job-search-os` → install **job-search-os**.
+2. **Customize → Connect folder** → choose or create a folder like `~/Documents/job-search/`. This is where your personal data will live and persist across Cowork sessions.
 
 ---
 
-## Step 3 — Build your LAMP list (`data/lamp.csv`)
+## Step 2 — Run onboarding
 
-Steve Dalton's framework. 40 companies, scored on three dimensions (1-3 each):
+Inside Cowork:
+
+```
+/job-search-os:onboarding
+```
+
+If your version doesn't have a slash command yet, paste this instead:
+
+> *"Walk me through onboarding for the job-search-os plugin. Copy the templates from the plugin into my connected host folder, then help me fill out lamp.csv, resume.yaml, me-on-a-page.md, storybank.md, and engage-with.txt. One at a time."*
+
+This walks through everything below interactively.
+
+---
+
+## Step 3 — Build your LAMP list (`lamp.csv`)
+
+Steve Dalton's framework. 40 companies, scored 1-3 on:
 
 - **A — Advocacy** — do you know anyone there?
 - **M — Motivation** — do you actually want to work there?
@@ -43,24 +41,24 @@ Steve Dalton's framework. 40 companies, scored on three dimensions (1-3 each):
 
 Total = A + M + P. Sort descending. Work the top of the list.
 
-Fill in the CSV. Brain-dump first (don't filter), then score, then sort.
+Brain-dump 40 companies first (don't filter). Then score. Then sort. Cowork can do the scoring with you — paste a company name and discuss.
 
 ---
 
-## Step 4 — Build your resume YAML (`data/resume.yaml`)
+## Step 4 — Build your resume YAML (`resume.yaml`)
 
-The Tailor skill rewrites bullets per JD. To do that, it needs your experience as structured data, not as a Word doc.
+The Tailor skill rewrites bullets per JD. It needs your experience as structured data, not a Word doc.
 
-For each role, capture:
+For each role:
 - Company, title, dates, location
 - 5-8 bullets, each with: action verb, what you did, quantified result
-- A "more detail" expansion of each bullet for cases when the JD calls for depth
+- A "more detail" expansion of each bullet for cases where the JD calls for depth
 
-The example file has the schema. Don't fabricate metrics — leave them blank if you don't know. The Tailor will use what's there.
+Schema is in `templates/resume.yaml.example`. Don't fabricate metrics — leave blank or note "approx." if uncertain.
 
 ---
 
-## Step 5 — Write your Me-in-30-Seconds + Me-on-a-Page
+## Step 5 — Write Me-in-30-Seconds + Me-on-a-Page
 
 **Me in 30 Seconds** (75-90 words, 4 parts):
 1. Who you are + personal connection (10-15 words)
@@ -68,13 +66,13 @@ The example file has the schema. Don't fabricate metrics — leave them blank if
 3. Strengths + one proof point (25-30 words)
 4. Call to action — a question (15-20 words)
 
-**Me on a Page** — one-page PDF you can forward when someone says "send me something I can share." Header, snapshot, 3 quantified wins, ideal next role. Build it in [flowcv.com](https://flowcv.com) or Canva and drop the PDF in `data/`.
+**Me on a Page** — one-page forwardable PDF. Header, snapshot, 3 quantified wins, ideal next role. Build in [flowcv.com](https://flowcv.com) or Canva and drop the PDF in your host folder.
 
 ---
 
-## Step 6 — Seed your storybank (`data/storybank.md`)
+## Step 6 — Seed the storybank (`storybank.md`)
 
-Behavioral interview stories. Coach uses this for mock interviews. Aim for **8-10 stories** spanning these question types:
+Behavioral interview stories. Coach uses this for mock panels. Aim for **8-10 stories** across:
 
 - Leadership / influence without authority
 - Conflict / disagreement
@@ -83,73 +81,71 @@ Behavioral interview stories. Coach uses this for mock interviews. Aim for **8-1
 - Scaling something
 - Metric-driven decision
 - Stakeholder management
-- Failure / what you learned
-- The hardest decision you've made
+- Failure / lesson
+- Hardest decision in 12 months
 - Something you're proud of
 
-Each story uses STAR + Q (Situation, Task, Action, Result, Quantification). Coach will tell you which question types your storybank is weakest on after the first mock session.
+Each story uses STAR + Q (Situation, Task, Action, Result, Quantification). Coach will tell you which question types your bank is weakest on after the first mock.
 
 ---
 
-## Step 7 — Build your "engage with" list (`data/engage-with.txt`)
+## Step 7 — Build the "engage with" list (`engage-with.txt`)
 
-20-30 LinkedIn accounts you'll comment on regularly. Scout pulls their posts each morning; Drafter queues comment options each day. Mix:
+20-30 LinkedIn URLs Scout pulls from each morning; Drafter queues comment options each day.
 
-- Hiring managers at your top 10 LAMP companies
+Mix:
+- Hiring managers at top 10 LAMP companies
 - Thought leaders in your function
 - Recruiters in your industry
 - People with the role you want
-- Alums from your school
+- Alums
 
-One URL per line. The list evolves — drop accounts that don't post, add ones that do.
+One URL per line. List evolves — drop accounts that don't post, add ones that do.
 
 ---
 
-## Step 8 — Capture target JDs (`data/target-jds/`)
+## Step 8 — Capture 5 target JDs
 
-5 job descriptions for the kinds of roles you want. Tailor uses these to mine noun phrases for semantic matching; Researcher uses them to know what "fit" means.
+Save 5 job descriptions for the kinds of roles you want as files in your host folder under `target-jds/`. Tailor uses them to mine noun phrases; Researcher uses them to know what "fit" means.
 
-Save each as a `.md` file with the JD pasted in. Anonymize if you want — the company doesn't matter, the role does.
+Anonymize the company if you want — the role description is what matters.
 
 ---
 
 ## Step 9 — Configure tools
 
-Edit `config.yaml` (copy `config.example.yaml`):
+Edit `config.yaml` in your host folder (copy from `templates/config.yaml.example`):
 
 ```yaml
-pipeline_tracker: huntr   # huntr | notion | sheets
-email_provider: gmail     # gmail | outlook
+pipeline_tracker: huntr      # huntr | notion | sheets
+email_provider: gmail        # gmail | outlook
 linkedin_profile_url: https://linkedin.com/in/your-handle
 location: "City, State"
 location_preference: "open to remote, prefer [region]"
-weekly_search_hours: 10   # tightens the daily cadence if you're employed
+weekly_search_hours: 10
 ```
+
+Connect Gmail and Calendar inside Cowork via **Customize → Connectors** so Drafter can save messages to drafts and Ops can read your calendar.
 
 ---
 
-## Step 10 — Wire up the cron (optional but high-leverage)
+## Step 10 — Schedule the morning briefing
 
-```bash
-./scripts/install-cron.sh
+Inside Cowork:
+
+```
+/schedule every weekday at 7:30am: run /job-search-os:brief and save the
+briefing to my job-search folder
 ```
 
-Installs:
-- 6:00am — LAMP refresh + job-board sweep
-- 6:30am — Pipeline triage
-- 6:45am — Today's outreach drafts (saved to Gmail drafts)
-- 7:00am — Morning briefing email to your inbox
-- Friday 4pm — Weekly synthesis
-
-If you'd rather run manually, skip this and invoke `Brief` each morning yourself.
+(Scheduled tasks only run when your Mac is awake and Claude Desktop is open. Leave them on overnight, or invoke brief manually each morning.)
 
 ---
 
-## Done. What now?
+## Done
 
-1. Open Claude Code in `~/job-search-os/`
-2. Tomorrow at 7am you'll get your first morning briefing
-3. Block 8-9am on your calendar for the daily co-working session
-4. Read [`docs/strategy.md`](docs/strategy.md) and [`docs/cowork-operations.md`](docs/cowork-operations.md) before the first session — knowing the model makes the system 10x more useful
+1. Read [`docs/strategy.md`](docs/strategy.md) and [`docs/cowork-operations.md`](docs/cowork-operations.md) before your first session — knowing the model makes the system 10x more useful.
+2. Tomorrow morning at 7:30am you'll get your first briefing.
+3. Block 8-9am on your calendar for the daily co-working session.
 
-The first 2 weeks the drafts will need heavy editing. Voice calibrates fast. By week 3 it'll feel like a real staff.
+The first 2 weeks the drafts will need heavy editing — voice calibrates fast. By week 3 it'll feel like a real staff.

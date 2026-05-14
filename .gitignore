@@ -1,15 +1,6 @@
-# Personal data — never commit
-data/*
-!data/.gitkeep
-briefings/*
-!briefings/.gitkeep
-pipeline/*
-!pipeline/.gitkeep
-
-# Local config that may contain tokens or paths
+# Local config that may contain tokens
 .env
 .env.local
-.claude/settings.local.json
 config.local.yaml
 *.local.yaml
 
@@ -20,15 +11,6 @@ config.local.yaml
 *.swp
 *.swo
 
-# Python (for any cron scripts)
-__pycache__/
-*.pyc
-.venv/
-venv/
-
-# Node (if you add anything JS-y)
-node_modules/
-
-# Generated tailored resumes
+# Generated tailored resumes (when developing locally)
 *.tailored.pdf
 *.tailored.docx

@@ -1,6 +1,7 @@
 ---
 name: tailor
-description: Customizes the user's resume per JD. Mines exact noun phrases from the JD, reorders bullets, never fabricates.
+description: Customizes the user's resume per job description. Mines exact noun phrases from the JD, reorders bullets so the top-3 requirements lead, mirrors JD phrasing where the user's experience legitimately matches, never fabricates, outputs ATS-friendly .docx. Reference this when the user wants to tailor a resume, customize for a specific job posting, or check resume-JD fit.
+user-invocable: true
 ---
 
 # Tailor — Resume Customization

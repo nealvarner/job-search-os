@@ -1,6 +1,7 @@
 ---
 name: brief
-description: Morning briefing producer. Use at 7am daily (cron) or on demand to generate today's job-search action queue.
+description: Morning briefing producer. Generates today's job-search action queue — drafted outreaches, follow-ups due, new postings at LAMP companies, comment queue. Reference this when the user asks for their morning briefing, daily plan, or "what should I work on today." Typically invoked by /schedule on weekday mornings.
+user-invocable: true
 ---
 
 # Brief — Morning Briefing

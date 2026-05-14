@@ -1,6 +1,7 @@
 ---
 name: synth
-description: Weekly synthesis. Surfaces patterns, drafts next-week commitments. Runs Friday 4pm or on demand.
+description: Weekly synthesis. Reviews the 15-10-2 numbers, surfaces wins, lessons, stalls, and pipeline-shape patterns; drafts next-week commitments for the user to confirm. Reference this when the user asks for a weekly review, end-of-week summary, "how's the search going," or what to focus on next week. Typically invoked by /schedule on Friday afternoons.
+user-invocable: true
 ---
 
 # Synth — Weekly Synthesis

@@ -1,6 +1,7 @@
 ---
 name: scout
-description: Sources new job leads, monitors public job boards, tracks news at LAMP companies. Runs continuously on cron.
+description: Sources new job leads and monitors public job boards (Wellfound, Built In, HN, Indeed RSS, BYU-Pathway, SHRM Jobs). Tracks news at LAMP-list target companies. Reference this when the user asks about new postings, what's hiring, monitoring a specific company, or filling the lead funnel. Often invoked by /schedule daily.
+user-invocable: true
 ---
 
 # Scout — Lead Sourcing
